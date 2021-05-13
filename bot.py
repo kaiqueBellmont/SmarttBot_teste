@@ -16,19 +16,17 @@ while True:
 
 
     class Candle(Bot):
-        abertura1 = helper.open_teste()
 
         def __init__(self, periodicidade=None, hora=None):
-            self.last = helper.last_close()
             self.periodicidade = periodicidade
             self.hora = hora
             super().__init__()
 
         def bitcoin_candle(self, moeda=helper.buscar_moeda(),
-                           data=helper.buscar_data(), open=helper.open_teste(),
+                           data=helper.buscar_data(), open=helper.last_open(),
                            low=helper.low(), high=helper.high(),
-                           close=None, periodicidade=1, last=helper.last_close()):
-            self.last = last
+                           close=None, periodicidade=1):
+
             self.moeda = moeda
             self.open = open
             self.low = low
@@ -47,7 +45,7 @@ while True:
 
     print(f'abertura   : {candle1}')
     # mudar valr até aqui candle.open = 10
-    time.sleep(1)
+    time.sleep(60)
     x = 1
     while x < 11:
 
@@ -67,7 +65,7 @@ while True:
                                                      open=helper.last_open(), low=helper.low(),
                                                      high=helper.high(), data=helper.buscar_data(),
                                                      close=helper.last_close())
-            time.sleep(1)
+            time.sleep(60)
 
             candle_1_fechado = candle.bitcoin_candle(moeda=helper.buscar_moeda(),
                                                      open=candle_1_fechado[1], low=helper.low(),
@@ -75,7 +73,7 @@ while True:
                                                      close=helper.last_close())
 
             print(f'Candle de 1 {candle_1_fechado} x = {x}')
-            time.sleep(1)
+
             if x == 5:
                 candle_5_fechado = candle.bitcoin_candle(moeda=helper.buscar_moeda(),
                                                          open=candle1[1], low=helper.low(),
