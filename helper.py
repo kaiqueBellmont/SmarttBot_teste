@@ -18,7 +18,7 @@ def buscar_moeda():
 
 
 def buscar_data():
-    data = str(datetime.now())
+    data = str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
     return data
 
 
