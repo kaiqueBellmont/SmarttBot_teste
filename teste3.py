@@ -2,8 +2,9 @@ import threading
 
 
 def hello_world():
-    threading.Timer(5, hello_world).start()  # called every minute
+      # called every minute
     print("Hello, World!")
+    threading.Timer(5, hello_world).start()
 
 
 print('tsttt')
