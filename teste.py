@@ -2,8 +2,7 @@ from datetime import datetime
 import helper
 import time
 
-x = 1
-while x < 10:
+while True:
     class Bot(object):
 
         def __init__(self, moeda=None, data=datetime.utcnow(), open=None,
@@ -41,51 +40,58 @@ while x < 10:
 
             return self.moeda, self.open, self.low, self.high, self.close, self.data, self.periodicidade
 
-        def candle1(self):
-            self.moeda = self.moeda
-            self.open = self.open
-            self.low = self.low
-            self.high = self.high
-            self.close = self.last
-            self.data = self.data
-            self.close = helper.last_close()
-            self.periodicidade = self.periodicidade
-            print(self.moeda, self.open)
-
 
     candle = Candle()
-    x += 1
 
     candle1 = candle.bitcoin_candle()
+
     print(f'abertura   : {candle1}')
     # mudar valr até aqui candle.open = 10
-    time.sleep(10)
-    while x < 10:
+    time.sleep(60)
+    x = 1
+    while x < 11:
+
         candle_1_fechado = candle.bitcoin_candle(moeda=helper.buscar_moeda(),
-                                                 open=candle.open, low=helper.low(),
+                                                 open=candle1[1], low=helper.low(),
                                                  high=helper.high(), data=helper.buscar_data(),
                                                  close=helper.last_close())
-        # modo de fazer acesso
-        print(candle1[1])
-        print(f'Candle de 1 {candle_1_fechado}')
-        print(x)
+        if x == 1:
+            # modo de fazer acesso
+            # print(candle1[1])
+            print(f'Candle de 1 {candle_1_fechado} x = {x}')
+            x += 1
 
-        if x == 5:
-            candle_5_fechado = candle.bitcoin_candle(moeda=helper.buscar_moeda(),
-                                                     open=candle1[1], low=helper.low(),
+        if x > 1:
+            # isso serve para pegar o valor do open
+            candle_1_fechado = candle.bitcoin_candle(moeda=helper.buscar_moeda(),
+                                                     open=helper.last_open(), low=helper.low(),
                                                      high=helper.high(), data=helper.buscar_data(),
-                                                     close=helper.last_close(), periodicidade=5)
+                                                     close=helper.last_close())
+            time.sleep(60)
 
-            print(f'candle de 5 : {candle_5_fechado}')
-            print(x)
+            candle_1_fechado = candle.bitcoin_candle(moeda=helper.buscar_moeda(),
+                                                     open=candle_1_fechado[1], low=helper.low(),
+                                                     high=helper.high(), data=helper.buscar_data(),
+                                                     close=helper.last_close())
 
-        if x == 10:
-            candle_10_fechado = candle.bitcoin_candle(moeda=helper.buscar_moeda(),
-                                                      open=candle1[1], low=helper.low(),
-                                                      high=helper.high(), data=helper.buscar_data(),
-                                                      close=helper.last_close(), periodicidade=5)
-            print(f'candle de 10 : {candle_10_fechado}')
+            print(f'Candle de 1 {candle_1_fechado} x = {x}')
+            time.sleep(1)
+            if x == 5:
+                candle_5_fechado = candle.bitcoin_candle(moeda=helper.buscar_moeda(),
+                                                         open=candle1[1], low=helper.low(),
+                                                         high=helper.high(), data=candle_1_fechado[5],
+                                                         close=candle_1_fechado[4], periodicidade=5)
 
-        x += 1
-    time.sleep(1)
+                print(f'candle de 5 : {candle_5_fechado} x = {x}')
 
+            if x == 10:
+                candle_10_fechado = candle.bitcoin_candle(moeda=helper.buscar_moeda(),
+                                                          open=candle1[1], low=helper.low(),
+                                                          high=helper.high(), data=candle_1_fechado[5],
+                                                          close=candle_1_fechado[4], periodicidade=10)
+                print(f'candle de 10 : {candle_10_fechado} x = {x}')
+
+            x += 1
+
+    # arrumar o parametro do helper.lastclose linha 73
+    # prestar atenção no close
