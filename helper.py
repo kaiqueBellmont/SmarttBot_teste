@@ -34,13 +34,11 @@ def last_close():
 
 
 def low():
-    low = buscar_api()['low24hr']
-    return low
+    return buscar_api()['low24hr']
 
 
 def high():
-    high = buscar_api()['high24hr']
-    return high
+    return buscar_api()['high24hr']
 
 
 def buscar_api2():
@@ -51,30 +49,25 @@ def buscar_api2():
 
 
 def buscar_moeda2():
-    moeda = 'BTC_XMR'
-    return moeda
+    return 'BTC_XMR'
 
 
 def buscar_data2():
-    data = str(datetime.now())
-    return data
+    return str(datetime.now())
 
 
 def last_open2():
-    last = buscar_api2()['last']
-    return last
+    return buscar_api2()['last']
 
 
 def last_close2():
-    close = buscar_api2()['last']
-    return close
+    return buscar_api2()['last']
 
 
 def low2():
-    low = buscar_api2()['low24hr']
-    return low
+    return buscar_api2()['low24hr']
 
 
 def high2():
-    high = buscar_api2()['high24hr']
-    return high
+    return buscar_api2()['high24hr']
+
