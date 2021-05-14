@@ -86,27 +86,27 @@ while True:
     essa parte foi dificil. Eu recebi os valores do candle (primeiros 60 segundos) para fechar
     então eu cotei, esperei 60 segundos, para fechar o candle de 1
     """
-    candle1 = candle.bitcoin_candle()
-    candle2 = candle.monero_candle()
+    candle_bitcoin = candle.bitcoin_candle()
+    candle_monero = candle.monero_candle()
 
     # função utilizada para esperar 60 segundos e iniciar o bot, já com valores cotados
-    time.sleep(40)
+    time.sleep(0)
     x = 1
 
     while x < 11:
         # aqui fica legal.
-        # eu recebi o valor de open do candle1 que é o do bitcoin
+        # eu recebi o valor de open do candle_bitcoin que é o do bitcoin
         # no close, recebi o last, que basicamente busca na api o ultimo valor e fecho o candle
         # era tudo que eu precisava.
         # eu repito a mesma coisa para o monero.
 
         candle_1_fechado = candle.bitcoin_candle(moeda=helper.buscar_moeda(),
-                                                 open=candle1[1], low=helper.low(),
+                                                 open=candle_bitcoin[1], low=helper.low(),
                                                  high=helper.high(), data=helper.buscar_data(),
                                                  close=helper.last_close())
 
         candle_2_fechado = candle.monero_candle(moeda='BTC_XMR',
-                                                open=candle2[1], low=helper.low2(),
+                                                open=candle_monero[1], low=helper.low2(),
                                                 high=helper.high2(), data=helper.buscar_data(),
                                                 close=helper.last_close2())
 
@@ -132,7 +132,7 @@ while True:
         # ja que o timer ja passou, o candle ja foi fehcado nas linhas 102 ou 107.
         if x == 1:
             # modo de fazer acesso
-            # print(candle1[1])
+            # print(candle_bitcoin[1])
 
             cursor.execute(sql1)
             cursor.execute(sql2)
@@ -167,7 +167,7 @@ while True:
             # depois que ele espera, o restante ja vai direto, seta valores corretamente
             # e salva no banco
 
-            time.sleep(40)
+            time.sleep(0)
 
             # aqui ja seto os valores mantendo o open depois de 1 minuto ou menos.
 
@@ -194,9 +194,9 @@ while True:
             # para que nao continuasse com os dados diferentes do candle de 1
             # eu precisava disso, pois deveria receber valores esppecificos nos parametros
             # ex : open que foi cotado nas linhas 88, 89, para fazer o fechamento correto de 5 min.
-            if x == 5:
+            if x == 5 and x < 6:
                 candle_5_fechado = candle.bitcoin_candle(moeda=helper.buscar_moeda(),
-                                                         open=candle1[1], low=helper.low(),
+                                                         open=candle_bitcoin[1], low=helper.low(),
                                                          high=helper.high(), data=candle_1_fechado[5],
                                                          close=helper.last_close(), periodicidade=5)
 
@@ -206,7 +206,7 @@ while True:
                        f" {candle_5_fechado[2]}, {candle_5_fechado[3]}, {candle_1_fechado[4]})"
 
                 candle_52_fechado = candle.monero_candle(moeda='BTC_XMR',
-                                                         open=candle2[1], low=helper.low2(),
+                                                         open=candle_monero[1], low=helper.low2(),
                                                          high=helper.high2(), data=candle_2_fechado[5],
                                                          close=helper.last_close2(), periodicidade=5)
 
@@ -229,7 +229,7 @@ while True:
             # Leia o final do codigo !
             if x == 10:
                 candle_10_fechado = candle.bitcoin_candle(moeda=helper.buscar_moeda(),
-                                                          open=candle1[1], low=helper.low(),
+                                                          open=candle_bitcoin[1], low=helper.low(),
                                                           high=helper.high(), data=candle_1_fechado[5],
                                                           close=helper.last_close(), periodicidade=10)
 
@@ -239,7 +239,7 @@ while True:
                        f" {candle_10_fechado[2]}, {candle_10_fechado[3]}, {candle_10_fechado[4]})"
 
                 candle_102_fechado = candle.monero_candle(moeda='BTC_XMR',
-                                                          open=candle2[1], low=helper.low2(),
+                                                          open=candle_monero[1], low=helper.low2(),
                                                           high=helper.high2(), data=candle_2_fechado[5],
                                                           close=helper.last_close2(), periodicidade=10)
 

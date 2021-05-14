@@ -94,7 +94,7 @@ while True:
 
         if x == 1:
             # modo de fazer acesso
-            # print(candle1[1])
+            # print(candle_bitcoin[1])
 
             cursor.execute(sql1)
             cursor.execute(sql2)
