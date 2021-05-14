@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+
+  smartbotdb:
+    image: smartbotdb
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    container_name: smarbbot-db
+    build:
+      context: dockerfile
+      dockerfile: DbDockerfile
+    environment:
+      MYSQL_DATABASE: smartbot
+      MYSQL_ROOT_PASSWORD: smarbot
+      MYSQL_USER: smartbot
+      MYSQL_PASSWORD: smartbot
+    volumes:
+      - ~/.local_database/smartbot/mysqlfordev:/var/lib/mysql
+    ports:
+      - 8306:3306
+    networks:
+      smarttbotNetWork:
+        ipv4_address: 172.10.3.2
+
+  smartbotapi:
+    image: smarttbotapi
+    restart: always
+    container_name: smartbot-api
+    build:
+      context: dockerfile
+      dockerfile: ApiDockerfile
+    networks:
+      smarttbotNetWork:
+        ipv4_address: 172.10.3.3
+    depends_on:
+      - smartbotdb
+
+networks:
+  smarttbotNetWork:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.10.3.0/29
+
+
+        
+

@@ -10,10 +10,11 @@ import pymysql
 # aqui eu criei minha conexão com o banco e ja defini o cursor,
 # cooloquei fora do while que faz meu programa repetir e assim não parar de cotar e salvar os valores.
 conexao = pymysql.connect(
-    host='localhost',
-    user='kaique',
-    passwd='Python@$123',
-    db='teste_banco'
+    host='172.10.3.2',
+    port=3306,
+    user='smartbot',
+    passwd='smartbot',
+    db='smartbot'
 )
 cursor = conexao.cursor()
 

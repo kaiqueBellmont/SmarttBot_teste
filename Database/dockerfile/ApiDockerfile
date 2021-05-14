@@ -1,0 +1,11 @@
+FROM python:3
+
+RUN pip install requests
+RUN pip install pymysql
+
+COPY helper.py /service/smarttbot/
+COPY bot.py /service/smarttbot/
+
+WORKDIR /service
+
+ENTRYPOINT ["python3", "smarttbot/bot.py"] 
